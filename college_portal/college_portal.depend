@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1590062016 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/main.cpp
+	<iostream>
+	"Student.h"
+	"Teacher.h"
+
+1590061899 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Student.h
+
+1590061650 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Student.cpp
+	<iostream>
+	"Student.h"
+
+1590062066 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Teacher.h
+	"Student.h"
+
+1590061750 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Teacher.cpp
+	<iostream>
+	"Teacher.h"
+
