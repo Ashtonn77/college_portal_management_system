@@ -1,14 +1,18 @@
 #ifndef TEACHER_H
 #define TEACHER_H
-#include "Student.h"
 
-class Teacher
+#include <Person.h>
+
+
+class Teacher : public Person
 {
-    private:
-
     public:
-        Teacher();
-        void display(Student &s);
+        Teacher(std::string fName = "Non-provided", std::string lName = "Non-provided",
+         long long int id = 0);
+        ~Teacher();
+        void display();
+    protected:
+
 
 };
 

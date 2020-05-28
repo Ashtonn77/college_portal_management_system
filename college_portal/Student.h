@@ -1,21 +1,19 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-class Student
+#include <Person.h>
+
+
+class Student : public Person
 {
-
-
-    private:
-    friend class Teacher;
-    std::string firstName;
-    std::string lastName;
-
     public:
-        Student(std::string n = "None", std::string l = "None");
-        Student(const Student &source);
+        Student(std::string fName = "Non-provided", std::string lName = "Non-provided"
+    , long long int id = 0, std::string e = "n/a");
         ~Student();
 
+    protected:
 
+    private:
 };
 
 #endif // STUDENT_H
