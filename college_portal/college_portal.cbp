@@ -34,10 +34,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Admin.cpp" />
+		<Unit filename="Admin.h" />
 		<Unit filename="Employee.cpp" />
 		<Unit filename="Employee.h" />
+		<Unit filename="Faculty.cpp" />
+		<Unit filename="Faculty.h" />
 		<Unit filename="Person.cpp" />
 		<Unit filename="Person.h" />
+		<Unit filename="Staff.cpp" />
+		<Unit filename="Staff.h" />
 		<Unit filename="Student.cpp" />
 		<Unit filename="Student.h" />
 		<Unit filename="main.cpp" />

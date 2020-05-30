@@ -1,6 +1,6 @@
 #ifndef PERSON_H
 #define PERSON_H
-
+#include <set>
 
 class Person
 {
@@ -12,6 +12,9 @@ class Person
     ~Person();
     void getDetails(Person &p);
     void displayDetails(Person &p);
+    void database(std::string str);
+    void countFiles(std::set<std::string> &arr);
+    std::string userTitle{};
 
     protected:
     std::string firstName{};

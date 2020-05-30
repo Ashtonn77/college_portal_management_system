@@ -1,7 +1,10 @@
 #include <iostream>
 #include "Person.h"
 #include "Student.h"
-#include "Teacher.h"
+#include "Employee.h"
+#include "Staff.h"
+#include "Faculty.h"
+#include "Admin.h"
 
 
 int main()
@@ -28,23 +31,44 @@ int main()
         case 1:
             std::cout << "Welcome admin "<< std::endl;
             {
-            Student p;
-            p.getDetails(p);
-           // p.displayDetails(p); //inherited from person class
+            Admin a;
+            a.userTitle = "Admin";
+            a.getDetails(a);
+            a.displayDetails(a);
             break;
             }
 
         case 2:
             std::cout << "Welcome faculty "<< std::endl;
+           {
+            Faculty f;
+            f.userTitle = "Faculty";
+            f.getDetails(f);
+            f.displayDetails(f);
             break;
+           }
 
         case 3:
             std::cout << "Welcome staff "<< std::endl;
+            {
+            Staff d;
+            d.userTitle = "Staff";
+            d.getDetails(d);
+            d.displayDetails(d);
             break;
+            }
 
         case 4:
             std::cout << "Welcome student "<< std::endl;
-            break;
+            {
+            Student p;
+            p.userTitle = "Student";
+            p.getDetails(p);
+            p.displayDetails(p); //inherited from person class
+
+           break;
+            }
+
 
         case 5:
             std::cout << "Goodbye "<< std::endl;

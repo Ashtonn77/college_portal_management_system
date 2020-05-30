@@ -9,11 +9,10 @@ Person::Person(std::string fName, std::string lName, long long int id, std::stri
 Person::~Person() {}
 
 //copy file names to text file to load to set to check for duplicates
-void database(std::string str)
+void Person::database(std::string str)
 {
-
     std::ofstream myFile;
-    std::string fileName{"db.txt"};
+    std::string fileName{"collegeDatabase/textFiles/" + userTitle + "Db.txt"};
 
     myFile.open(fileName, std::ios_base::app);
 
@@ -25,10 +24,10 @@ void database(std::string str)
 }
 
 //load files into set to check for duplicates
-void countFiles(std::set<std::string> &arr)
+void Person::countFiles(std::set<std::string> &arr)
 {
     std::string line;
-    std::ifstream personFile ("db.txt");
+    std::ifstream personFile ("collegeDatabase/textFiles/" + userTitle + "Db.txt");
     if(personFile.is_open())
     {
         while(std::getline(personFile, line))
@@ -71,18 +70,17 @@ void Person::getDetails(Person &p)
 
     std::ofstream personFile;
 
-    std::string fileName{"studentDetails/" + std::to_string(id) + ".txt"};
+    std::string fileName{"collegeDatabase/" + userTitle + "Details/" + std::to_string(id) + ".txt"};
     fileNames.insert(fileName);
     if(fileNames.size() == oldFileNames.size())//if name already exists sets will be same
     {
         std::cout << "I'm sorry, we already have this i.d number on file" << std::endl;
+        exit (EXIT_FAILURE);
     }
     else
     {
         database(fileName);
         personFile.open(fileName);
-        std::cout << "Success!!" << std::endl;
-
         if(personFile.is_open())
         {
             personFile << fName << "\n";
@@ -95,12 +93,16 @@ void Person::getDetails(Person &p)
         else
         {
             std::cout << "system error...unable to save details." << std::endl;
+            exit (EXIT_FAILURE);
         }
 
     }
 
 }
 
+
+
+//display - change test name and read functionality
 void test(std::string str, auto data)
 {
     std::cout << "Your " << str << " is " << data << std::endl;
@@ -112,7 +114,7 @@ void Person::displayDetails(Person &p)
     std::string arr[4] {"First name", "Last name", "I.d number", "Email address"};
     int i{0};
     std::string line;
-    std::ifstream personFile ("studentDetails/" + std::to_string(p.idNumber) + ".txt");
+    std::ifstream personFile ("collegeDatabase/" + userTitle + "Details/" + std::to_string(p.idNumber) + ".txt");
     if(personFile.is_open())
     {
         while(std::getline(personFile, line))

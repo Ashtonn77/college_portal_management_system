@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1590671482 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/main.cpp
+1590843528 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/main.cpp
 	<iostream>
 	"Person.h"
 	"Student.h"
-	"Teacher.h"
+	"Employee.h"
+	"Staff.h"
 
 1590663276 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Student.h
 	<Person.h>
@@ -19,15 +20,17 @@
 	<iostream>
 	"Teacher.h"
 
-1590677639 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Person.cpp
+1590843861 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Person.cpp
 	<iostream>
 	<fstream>
 	<set>
 	"Person.h"
 
-1590664722 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Person.h
+1590843378 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Person.h
+	<set>
 
-1590664722 /home/ashton/Documents/c++/college_portal_management_system/college_portal//Person.h
+1590843378 /home/ashton/Documents/c++/college_portal_management_system/college_portal//Person.h
+	<set>
 
 1590181579 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Employee.cpp
 	<iostream>
@@ -35,4 +38,21 @@
 
 1590181516 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Employee.h
 	<Person.h>
+
+1590843303 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Staff.h
+	<Employee.h>
+
+1590181516 /home/ashton/Documents/c++/college_portal_management_system/college_portal//Employee.h
+	<Person.h>
+
+1590843511 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Staff.cpp
+	<iostream>
+	"Staff.h"
+
+1590844015 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Faculty.cpp
+	<iostream>
+	"Faculty.h"
+
+1590844029 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Faculty.h
+	<Employee.h>
 

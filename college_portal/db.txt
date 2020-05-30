@@ -1,6 +1,0 @@
-studentDetails/1.txt
-studentDetails/2.txt
-studentDetails/3.txt
-studentDetails/5.txt
-studentDetails/0.txt
-studentDetails/6.txt
