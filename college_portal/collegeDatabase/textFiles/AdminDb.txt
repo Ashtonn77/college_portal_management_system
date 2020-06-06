@@ -1,1 +1,4 @@
 collegeDatabase/AdminDetails/54.txt
+collegeDatabase/AdminDetails/2.txt
+collegeDatabase/AdminDetails/12.txt
+collegeDatabase/AdminDetails/8810.txt

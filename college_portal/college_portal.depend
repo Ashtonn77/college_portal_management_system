@@ -1,13 +1,17 @@
 # depslib dependency file v1.0
-1590843528 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/main.cpp
+1591437741 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/main.cpp
 	<iostream>
+	<sqlite3.h>
 	"Person.h"
 	"Student.h"
 	"Employee.h"
 	"Staff.h"
+	"Faculty.h"
+	"Admin.h"
+	"Database.h"
 
-1590663276 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Student.h
-	<Person.h>
+1591279403 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Student.h
+	"Person.h"
 
 1590181376 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Student.cpp
 	<iostream>
@@ -36,11 +40,11 @@
 	<iostream>
 	"Employee.h"
 
-1590181516 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Employee.h
-	<Person.h>
+1591279465 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Employee.h
+	"Person.h"
 
-1590843303 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Staff.h
-	<Employee.h>
+1591279437 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Staff.h
+	"Employee.h"
 
 1590181516 /home/ashton/Documents/c++/college_portal_management_system/college_portal//Employee.h
 	<Person.h>
@@ -53,6 +57,19 @@
 	<iostream>
 	"Faculty.h"
 
-1590844029 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Faculty.h
-	<Employee.h>
+1591279454 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Faculty.h
+	"Employee.h"
+
+1591279769 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Admin.cpp
+	<iostream>
+	"Admin.h"
+
+1591279486 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Admin.h
+	"Employee.h"
+
+1591279210 source:/home/ashton/Documents/c++/college_portal_management_system/college_portal/Database.cpp
+	<iostream>
+	"Database.h"
+
+1591437758 /home/ashton/Documents/c++/college_portal_management_system/college_portal/Database.h
 

@@ -1,7 +1,7 @@
 #ifndef STAFF_H
 #define STAFF_H
 
-#include <Employee.h>
+#include "Employee.h"
 
 
 class Staff : public Employee

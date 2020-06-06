@@ -1,7 +1,7 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#include <Person.h>
+#include "Person.h"
 
 
 class Student : public Person
