@@ -24,6 +24,7 @@ int main(int argc, char **argv)
         std::cout << "4. Student" << std::endl;
         std::cout << "5. Exit" << std::endl;
         std::cout << "6. Db state" << std::endl;
+        std::cout << "7. misc" << std::endl;
         std::cout << "0. Test" << std::endl;
         std::cout << std::endl;
         std::cin >> choice;
@@ -81,12 +82,20 @@ int main(int argc, char **argv)
             s.checkTableState();
             break;
         }
+        case 7:
+        {
+            Database t;
+
+            break;
+        }
+
         case 0:
         {
             Database d;
             //d.openDatabase();
             //d.createPersonTable();
             d.insertIntoTable();
+            //d.deleteRecordFromTable();
             break;
         }
         default:

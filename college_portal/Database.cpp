@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sqlite3.h>
+#include <string>
 #include "Database.h"
 
 Database::Database() {}
@@ -54,7 +55,7 @@ int Database::createPersonTable()
 static int callback(void *data, int argc, char **argv, char **azColName)
 {
     int i;
-    fprintf(stderr, "%s: ", (const char *)data);
+    //fprintf(stderr, "%s: ", (const char *)data);
 
     for (i = 0; i < argc; i++)
     {
@@ -68,9 +69,11 @@ static int callback(void *data, int argc, char **argv, char **azColName)
 void Database::checkTableState()
 {
     sqlite3 *Db;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
     std::string query = "SELECT * FROM Person";
     sqlite3_exec(Db, query.c_str(), callback, NULL, NULL);
-    std::cout << "..." << std::endl;
+    if (countRows() < 1)
+        std::cout << "There are no records in table" << std::endl;
 }
 
 int Database::insertIntoTable()
@@ -93,27 +96,41 @@ int Database::insertIntoTable()
     return 0;
 }
 
-/*sqlite3* DB;
-    char* messaggeError;
-    int exit = sqlite3_open("example.db", &DB);
-    string query = "SELECT * FROM PERSON;";
+int Database::deleteRecordFromTable()
+{
+    sqlite3 *Db;
+    char *messageError;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string sql = "DELETE FROM Person WHERE id = 88100";
 
-    cout << "STATE OF TABLE BEFORE INSERT" << endl;
-
-    sqlite3_exec(DB, query.c_str(), callback, NULL, NULL);
-
-    string sql("INSERT INTO PERSON VALUES(1, 'STEVE', 'GATES', 30, 'PALO ALTO', 1000.0);"
-               "INSERT INTO PERSON VALUES(2, 'BILL', 'ALLEN', 20, 'SEATTLE', 300.22);"
-               "INSERT INTO PERSON VALUES(3, 'PAUL', 'JOBS', 24, 'SEATTLE', 9900.0);");
-
-    exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError);
-    if (exit != SQLITE_OK) {
-        std::cerr << "Error Insert" << std::endl;
-        sqlite3_free(messaggeError);
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error deleting record" << std::endl;
+        sqlite3_free(messageError);
     }
     else
-        std::cout << "Records created Successfully!" << std::endl;
+        std::cout << "Record deleted successfully" << std::endl;
 
-    cout << "STATE OF TABLE AFTER INSERT" << endl;
+    sqlite3_close(Db);
+    return 0;
+}
 
-    sqlite3_exec(DB, query.c_str(), callback, NULL, NULL); */
+//count callback
+static int countCallback(void *count, int argc, char **argv, char **azColName)
+{
+    int *c = (int *)count;
+    *c = atoi(argv[0]);
+    return 0;
+}
+
+int Database::countRows()
+{
+    sqlite3 *Db;
+    char *messageError;
+    int count = 0;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string query = "SELECT COUNT(*) FROM Person;";
+    int r = sqlite3_exec(Db, query.c_str(), countCallback, &count, &messageError);
+    return count;
+}
