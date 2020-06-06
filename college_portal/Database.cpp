@@ -76,6 +76,7 @@ void Database::checkTableState()
         std::cout << "There are no records in table" << std::endl;
 }
 
+//insert
 int Database::insertIntoTable(long long id, std::string name, std::string surname, int age, std::string address)
 {
     sqlite3 *Db;
@@ -97,12 +98,13 @@ int Database::insertIntoTable(long long id, std::string name, std::string surnam
     return 0;
 }
 
-int Database::deleteRecordFromTable()
+//delete
+int Database::deleteRecordFromTable(long long id)
 {
     sqlite3 *Db;
     char *messageError;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string sql = "DELETE FROM Person WHERE id = 88100";
+    std::string sql = "DELETE FROM Person WHERE id = " + std::to_string(id);
 
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
     if (exit != SQLITE_OK)

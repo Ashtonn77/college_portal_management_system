@@ -66,8 +66,8 @@ int main(int argc, char **argv)
                 Student p;
                 p.userTitle = "Student";
                 p.getDetails(p);
-                p.studentInsert();
-
+                //p.studentInsert();
+                p.studentDelete();
                 break;
             }
 

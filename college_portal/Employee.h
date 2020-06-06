@@ -3,17 +3,14 @@
 
 #include "Person.h"
 
-
 class Employee : public Person
 {
-    public:
-        Employee(std::string fName = "Non-provided", std::string lName = "Non-provided"
-    , long long int id = 0, std::string e = "n/a");
-        ~Employee();
+public:
+    Employee(std::string fName = "Non-provided", std::string lName = "Non-provided", long long int id = 0, std::string e = "n/a", int age = 0);
+    ~Employee();
 
-    protected:
-
-    private:
+protected:
+private:
 };
 
 #endif // EMPLOYEE_H
