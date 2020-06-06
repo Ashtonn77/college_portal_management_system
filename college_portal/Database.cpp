@@ -76,13 +76,14 @@ void Database::checkTableState()
         std::cout << "There are no records in table" << std::endl;
 }
 
-int Database::insertIntoTable()
+int Database::insertIntoTable(long long id, std::string name, std::string surname, int age, std::string address)
 {
     sqlite3 *Db;
     char *messageError;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
 
-    std::string sql = "INSERT INTO Person VALUES(88100, 'Ashton', 'Naidoo', 32, 'Seatides, Durban');";
+    std::string sql = "INSERT INTO Person VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + address + "');";
+
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
     if (exit != SQLITE_OK)
     {

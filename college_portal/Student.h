@@ -2,18 +2,18 @@
 #define STUDENT_H
 
 #include "Person.h"
-
+#include "Database.h"
 
 class Student : public Person
 {
-    public:
-        Student(std::string fName = "Non-provided", std::string lName = "Non-provided"
-    , long long int id = 0, std::string e = "n/a");
-        ~Student();
+    Database d;
 
-    protected:
+public:
+    Student(std::string fName = "Non-provided", std::string lName = "Non-provided", long long int id = 0, std::string e = "n/a", int age = 0);
+    ~Student();
+    void studentInsert() { d.insertIntoTable(idNumber, firstName, lastName, age, address); }
 
-    private:
+protected:
 };
 
 #endif // STUDENT_H

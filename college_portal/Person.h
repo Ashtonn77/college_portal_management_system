@@ -5,24 +5,19 @@
 class Person
 {
 
-    public:
-    Person(std::string fName = "Non-provided", std::string lName = "Non-provided"
-    , long long int id = 0, std::string e = "n/a");
-    Person(const Person &source):Person{source.firstName, source.lastName, source.idNumber, source.email}{}
+public:
+    Person(std::string fName = "Non-provided", std::string lName = "Non-provided", long long int id = 0, std::string e = "n/a", int age = 0);
+    Person(const Person &source) : Person{source.firstName, source.lastName, source.idNumber, source.address, source.age} {}
     ~Person();
     void getDetails(Person &p);
-    void displayDetails(Person &p);
-    void database(std::string str);
-    void countFiles(std::set<std::string> &arr);
     std::string userTitle{};
 
-    protected:
+protected:
     std::string firstName{};
     std::string lastName{};
     long long int idNumber{};
-    std::string email{};
-
-
+    std::string address{};
+    int age{};
 };
 
 #endif // PERSON_H

@@ -10,7 +10,7 @@ public:
     int openDatabase();
     int createPersonTable();
     void checkTableState();
-    int insertIntoTable();
+    int insertIntoTable(long long id, std::string name, std::string surname, int age, std::string address);
     int deleteRecordFromTable();
     int countRows();
 

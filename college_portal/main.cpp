@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-
+    Database s;
     std::cout << "Hello, there! How would you like to proceed?" << std::endl;
     int choice{0};
 
@@ -37,8 +37,6 @@ int main(int argc, char **argv)
             {
                 Admin a;
                 a.userTitle = "Admin";
-                a.getDetails(a);
-                a.displayDetails(a);
                 break;
             }
 
@@ -48,7 +46,7 @@ int main(int argc, char **argv)
                 Faculty f;
                 f.userTitle = "Faculty";
                 f.getDetails(f);
-                f.displayDetails(f);
+
                 break;
             }
 
@@ -58,7 +56,7 @@ int main(int argc, char **argv)
                 Staff d;
                 d.userTitle = "Staff";
                 d.getDetails(d);
-                d.displayDetails(d);
+
                 break;
             }
 
@@ -68,7 +66,7 @@ int main(int argc, char **argv)
                 Student p;
                 p.userTitle = "Student";
                 p.getDetails(p);
-                p.displayDetails(p); //inherited from person class
+                p.studentInsert();
 
                 break;
             }
@@ -78,23 +76,22 @@ int main(int argc, char **argv)
             break;
         case 6:
         {
-            Database s;
+
             s.checkTableState();
             break;
         }
         case 7:
         {
-            Database t;
 
             break;
         }
 
         case 0:
         {
-            Database d;
+
             //d.openDatabase();
             //d.createPersonTable();
-            d.insertIntoTable();
+            //d.insertIntoTable();
             //d.deleteRecordFromTable();
             break;
         }
