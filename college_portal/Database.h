@@ -13,6 +13,7 @@ public:
     int insertIntoTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept);
     int deleteRecordFromTable(long long id);
     int countRows();
+    void readRecord(long long id);
 
 protected:
 };

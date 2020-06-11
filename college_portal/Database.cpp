@@ -7,6 +7,25 @@ Database::Database() {}
 
 Database::~Database() {}
 
+//count callback
+static int countCallback(void *count, int argc, char **argv, char **azColName)
+{
+    int *c = (int *)count;
+    *c = atoi(argv[0]);
+    return 0;
+}
+
+int Database::countRows()
+{
+    sqlite3 *Db;
+    char *messageError;
+    int count = 0;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string query = "SELECT COUNT(*) FROM Person;";
+    int r = sqlite3_exec(Db, query.c_str(), countCallback, &count, &messageError);
+    return count;
+}
+
 int Database::openDatabase()
 {
     sqlite3 *Db;
@@ -27,7 +46,11 @@ int Database::openDatabase()
 int Database::createPersonTable()
 {
     sqlite3 *Db;
-    //select count(type) from sqlite_master where type='table' and name='TABLE_NAME_TO_CHECK';
+    if (countRows() > 0)
+    {
+        std::cout << " " << std::endl;
+        return 0;
+    }
     std::string sql = "CREATE TABLE Person("
                       "ID          INT PRIMARY KEY         NOT NULL, "
                       "NAME        TEXT                    NOT NULL, "
@@ -121,21 +144,25 @@ int Database::deleteRecordFromTable(long long id)
     return 0;
 }
 
-//count callback
-static int countCallback(void *count, int argc, char **argv, char **azColName)
-{
-    int *c = (int *)count;
-    *c = atoi(argv[0]);
-    return 0;
-}
-
-int Database::countRows()
+void Database::readRecord(long long id)
 {
     sqlite3 *Db;
-    char *messageError;
-    int count = 0;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string query = "SELECT COUNT(*) FROM Person;";
-    int r = sqlite3_exec(Db, query.c_str(), countCallback, &count, &messageError);
-    return count;
+    std::string query = "SELECT * FROM Person WHERE ID=" + std::to_string(id);
+
+    struct sqlite3_stmt *selectstmt;
+    int result = sqlite3_prepare_v2(Db, query.c_str(), -1, &selectstmt, NULL);
+    if (result == SQLITE_OK)
+    {
+        if (sqlite3_step(selectstmt) == SQLITE_ROW)
+        {
+            sqlite3_exec(Db, query.c_str(), callback, NULL, NULL);
+        }
+        else
+        {
+            system("clear");
+            std::cout << "No record with that i.d number in our system...try another" << std::endl;
+        }
+    }
+    sqlite3_finalize(selectstmt);
 }

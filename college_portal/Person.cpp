@@ -15,6 +15,7 @@ void Person::getDetails(Person &p, std::string dept)
     long long int id{0};
     std::string resAdd{};
     p.departmentTitle = dept;
+
     std::cout << "Enter " << dept << "'s first name?  ";
     std::cin >> fName;
     p.firstName = fName;
@@ -32,6 +33,6 @@ void Person::getDetails(Person &p, std::string dept)
     p.age = age;
 
     std::cout << "Enter " << dept << "'s residential address?  ";
-    std::cin >> resAdd;
+    std::getline(std::cin >> std::ws, resAdd);
     p.address = resAdd;
 }

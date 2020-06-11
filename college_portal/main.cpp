@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sqlite3.h>
+#include <stdlib.h>
 #include "Person.h"
 #include "Student.h"
 #include "Employee.h"
@@ -8,10 +9,28 @@
 #include "Admin.h"
 #include "Database.h"
 
+void welcomeMsg()
+{
+
+    std::cout << "+---------------------------------------------+" << std::endl;
+    std::cout << "|                                             |" << std::endl;
+    std::cout << "|         WELCOME TO GOTHAM COLLEGE           |" << std::endl;
+    std::cout << "|                                             |" << std::endl;
+    std::cout << "+---------------------------------------------+" << std::endl;
+    std::cout << std::endl
+              << std::endl;
+}
+
 int main(int argc, char **argv)
 {
     Database s;
-    std::cout << "Hello, there! How would you like to proceed?" << std::endl;
+    s.openDatabase();
+    s.createPersonTable();
+    std::cout << std::endl;
+
+    welcomeMsg();
+
+    std::cout << "How would you like to proceed?" << std::endl;
     int choice{0};
 
     do
@@ -33,6 +52,7 @@ int main(int argc, char **argv)
         {
 
         case 1:
+            system("clear");
             std::cout << "Welcome admin " << std::endl;
             {
                 Admin a;
@@ -45,6 +65,7 @@ int main(int argc, char **argv)
             }
 
         case 2:
+            system("clear");
             std::cout << "Welcome faculty " << std::endl;
             {
                 // Faculty f;
@@ -55,6 +76,7 @@ int main(int argc, char **argv)
             }
 
         case 3:
+            system("clear");
             std::cout << "Welcome staff " << std::endl;
             {
                 // Staff d;
@@ -65,6 +87,7 @@ int main(int argc, char **argv)
             }
 
         case 4:
+            system("clear");
             std::cout << "Welcome student " << std::endl;
             {
                 // Student p;
@@ -80,7 +103,7 @@ int main(int argc, char **argv)
             break;
         case 6:
         {
-
+            system("clear");
             s.checkTableState();
             break;
         }
@@ -100,6 +123,7 @@ int main(int argc, char **argv)
             break;
         }
         default:
+            system("clear");
             std::cout << "Invalid entry " << std::endl;
         }
 
