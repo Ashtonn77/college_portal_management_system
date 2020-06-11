@@ -37,15 +37,19 @@ int main(int argc, char **argv)
             {
                 Admin a;
                 a.userTitle = "Admin";
+                //a.getDetails(a);
+                //a.studentInsert();
+                // a.studentDelete();
+                a.task();
                 break;
             }
 
         case 2:
             std::cout << "Welcome faculty " << std::endl;
             {
-                Faculty f;
-                f.userTitle = "Faculty";
-                f.getDetails(f);
+                // Faculty f;
+                // f.userTitle = "Faculty";
+                // f.getDetails(f);
 
                 break;
             }
@@ -53,9 +57,9 @@ int main(int argc, char **argv)
         case 3:
             std::cout << "Welcome staff " << std::endl;
             {
-                Staff d;
-                d.userTitle = "Staff";
-                d.getDetails(d);
+                // Staff d;
+                // d.userTitle = "Staff";
+                // d.getDetails(d);
 
                 break;
             }
@@ -63,11 +67,11 @@ int main(int argc, char **argv)
         case 4:
             std::cout << "Welcome student " << std::endl;
             {
-                Student p;
-                p.userTitle = "Student";
-                p.getDetails(p);
-                //p.studentInsert();
-                p.studentDelete();
+                // Student p;
+                // p.userTitle = "Student";
+                // p.getDetails(p);
+                // //p.studentInsert();
+                // // p.studentDelete();
                 break;
             }
 

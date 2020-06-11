@@ -27,11 +27,13 @@ int Database::openDatabase()
 int Database::createPersonTable()
 {
     sqlite3 *Db;
+    //select count(type) from sqlite_master where type='table' and name='TABLE_NAME_TO_CHECK';
     std::string sql = "CREATE TABLE Person("
                       "ID          INT PRIMARY KEY         NOT NULL, "
                       "NAME        TEXT                    NOT NULL, "
                       "SURNAME     TEXT                    NOT NULL, "
                       "AGE         INT                     NOT NULL, "
+                      "DEPARTMENT     CHAR(50)             NOT NULL, "
                       "ADDRESS     CHAR(50)                        );";
 
     int exit{0};
@@ -77,13 +79,13 @@ void Database::checkTableState()
 }
 
 //insert
-int Database::insertIntoTable(long long id, std::string name, std::string surname, int age, std::string address)
+int Database::insertIntoTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept)
 {
     sqlite3 *Db;
     char *messageError;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
 
-    std::string sql = "INSERT INTO Person VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + address + "');";
+    std::string sql = "INSERT INTO Person VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + dept + "', '" + address + "');";
 
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
     if (exit != SQLITE_OK)

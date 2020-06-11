@@ -7,31 +7,31 @@ Person::Person(std::string fName, std::string lName, long long int id, std::stri
 Person::~Person() {}
 
 //use set to check if file name exists
-void Person::getDetails(Person &p)
+void Person::getDetails(Person &p, std::string dept)
 {
 
     std::string fName{};
     std::string lName{};
     long long int id{0};
     std::string resAdd{};
-
-    std::cout << "What is your first name?  ";
+    p.departmentTitle = dept;
+    std::cout << "Enter " << dept << "'s first name?  ";
     std::cin >> fName;
     p.firstName = fName;
 
-    std::cout << "What is your last name?  ";
+    std::cout << "Enter " << dept << "'s last name?  ";
     std::cin >> lName;
     p.lastName = lName;
 
-    std::cout << "What is your i.d number?  ";
+    std::cout << "Enter " << dept << "'s i.d number?  ";
     std::cin >> id;
     p.idNumber = id;
 
-    std::cout << "What is your age?  ";
+    std::cout << "Enter " << dept << "'s age?  ";
     std::cin >> age;
     p.age = age;
 
-    std::cout << "What is your residential address?  ";
+    std::cout << "Enter " << dept << "'s residential address?  ";
     std::cin >> resAdd;
     p.address = resAdd;
 }

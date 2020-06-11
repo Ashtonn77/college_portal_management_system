@@ -8,9 +8,11 @@ class Admin : public Employee
 public:
     Admin(std::string fName = "Non-provided", std::string lName = "Non-provided", long long int id = 0, std::string e = "n/a", int age = 0);
     ~Admin();
+    void task();
+    void studentInsert();
+    void studentDelete();
 
 protected:
-private:
 };
 
 #endif // ADMIN_H
