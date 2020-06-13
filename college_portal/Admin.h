@@ -12,6 +12,7 @@ public:
     void personInsert();
     void personDelete(std::string dept);
     void personRead(std::string dept);
+    void personUpdate(std::string dept);
 
 protected:
 };

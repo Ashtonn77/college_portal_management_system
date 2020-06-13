@@ -43,6 +43,7 @@ int Database::openDatabase()
     return 0;
 }
 
+//create table
 int Database::createPersonTable()
 {
     sqlite3 *Db;
@@ -91,6 +92,7 @@ static int callback(void *data, int argc, char **argv, char **azColName)
 }
 //end print table state
 
+//check values in table
 void Database::checkTableState()
 {
     sqlite3 *Db;
@@ -144,6 +146,7 @@ int Database::deleteRecordFromTable(long long id)
     return 0;
 }
 
+//read
 void Database::readRecord(long long id)
 {
     sqlite3 *Db;
@@ -165,4 +168,26 @@ void Database::readRecord(long long id)
         }
     }
     sqlite3_finalize(selectstmt);
+}
+
+//update
+int Database::updateRecordInTable(long long id, std::string column, std::string attribute)
+{
+    sqlite3 *Db;
+    char *messageError;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string sql = "UPDATE Person SET '" + column + "'='" + attribute + "' WHERE id = " + std::to_string(id);
+
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error updating record" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Record updated successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
 }

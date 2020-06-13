@@ -24,6 +24,7 @@ void Admin::personDelete(std::string dept)
     std::cin >> id;
     d.deleteRecordFromTable(id);
 }
+
 void Admin::personRead(std::string dept)
 {
     system("clear");
@@ -32,6 +33,61 @@ void Admin::personRead(std::string dept)
     std::cin >> id;
     d.readRecord(id);
 }
+
+//update main and helper functions
+
+std::string columnToUpdate()
+{
+    //system("clear");
+    std::string colName{};
+    int choice = -1;
+
+    std::cout << "Which field would you like to update? " << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "1. Change first name " << std::endl;
+    std::cout << "2. Change last name" << std::endl;
+    std::cout << "3. Change age " << std::endl;
+    std::cout << "4. Change department " << std::endl;
+    std::cout << "5. Change address " << std::endl;
+
+    std::cin >> choice;
+
+    if (choice == 1)
+        colName = "NAME";
+    else if (choice == 2)
+        colName = "SURNAME";
+    else if (choice == 3)
+        colName = "AGE";
+    else if (choice == 4)
+        colName = "DEPARTMENT";
+    else if (choice == 5)
+        colName = "ADDRESS";
+    else
+        colName = "Invalid";
+
+    return colName;
+}
+
+void Admin::personUpdate(std::string dept)
+{
+    system("clear");
+    long long id;
+    displayIdPrompt(dept, "update");
+    std::cin >> id;
+    std::string str = "";
+    std::string colName = columnToUpdate();
+    while (colName == "Invalid")
+    {
+        system("clear");
+        std::cout << "Sorry, that's an invalid entry...try again" << std::endl;
+        colName = columnToUpdate();
+    }
+    std::cout << "To what would you like to change the current attribute?" << std::endl;
+    std::getline(std::cin >> std::ws, str);
+    d.updateRecordInTable(id, colName, str);
+}
+//end update
 
 //action for db
 void dbAction(std::string dept)
@@ -64,6 +120,7 @@ void dbAction(std::string dept)
         {
             system("clear");
             //update record function
+            a.personUpdate(a.departmentTitle);
             break;
         }
 

@@ -14,6 +14,7 @@ public:
     int deleteRecordFromTable(long long id);
     int countRows();
     void readRecord(long long id);
+    int updateRecordInTable(long long id, std::string column, std::string attribute);
 
 protected:
 };

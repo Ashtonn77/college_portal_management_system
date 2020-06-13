@@ -8,6 +8,7 @@
 #include "Faculty.h"
 #include "Admin.h"
 #include "Database.h"
+#include "ErrorHandling.h"
 
 void welcomeMsg()
 {
@@ -57,9 +58,6 @@ int main(int argc, char **argv)
             {
                 Admin a;
                 a.userTitle = "Admin";
-                //a.getDetails(a);
-                //a.studentInsert();
-                // a.studentDelete();
                 a.task();
                 break;
             }
@@ -69,9 +67,12 @@ int main(int argc, char **argv)
             std::cout << "Welcome faculty " << std::endl;
             {
                 // Faculty f;
-                // f.userTitle = "Faculty";
-                // f.getDetails(f);
-
+                ErrorHandling e;
+                std::string s{};
+                std::cout << "Enter number " << std::endl;
+                std::cin >> s;
+                int x = e.validIntegerInput(s, "Enter number ");
+                std::cout << x;
                 break;
             }
 
