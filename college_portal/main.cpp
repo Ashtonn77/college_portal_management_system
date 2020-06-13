@@ -68,13 +68,7 @@ int main(int argc, char **argv)
             {
                 // Faculty f;
                 ErrorHandling e;
-                std::string s{};
-                std::cout << "Enter number " << std::endl;
-                std::cin >> s;
-                int x = e.validIntegerInput(s, "Enter number ");
-                std::cout << x;
-                break;
-            }
+                        }
 
         case 3:
             system("clear");
