@@ -26,6 +26,19 @@ int Database::countRows()
     return count;
 }
 
+///check if table exists
+int Database::tableCount()
+{
+
+    sqlite3 *Db;
+    char *messageError;
+    int count = 0;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string query = "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name = 'Person'";
+    int r = sqlite3_exec(Db, query.c_str(), countCallback, &count, &messageError);
+    return count;
+}
+
 int Database::openDatabase()
 {
     sqlite3 *Db;
@@ -64,6 +77,12 @@ int Database::createPersonTable()
     exit = sqlite3_open("sqliteDb/college.db", &Db);
     char *messageError;
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+
+    if (tableCount() > 0)
+    {
+        std::cout << " ";
+        return 0;
+    }
 
     if (exit != SQLITE_OK)
     {

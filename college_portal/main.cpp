@@ -67,8 +67,10 @@ int main(int argc, char **argv)
             std::cout << "Welcome faculty " << std::endl;
             {
                 // Faculty f;
-                ErrorHandling e;
-                        }
+                Database e;
+                //std::cout << e.test() << std::endl;
+                break;
+            }
 
         case 3:
             system("clear");

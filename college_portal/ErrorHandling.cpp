@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-
+#include <regex>
 #include "ErrorHandling.h"
 
 ErrorHandling::ErrorHandling(/* args */) {}
@@ -65,14 +65,21 @@ int ErrorHandling::validIntegerInput(std::string &str, std::string question)
 
 // std::string ErrorHandling::validAddress(std::string &str, std::string question)
 // {
-//     std::regex noSpecial("[a-zA-Z0-9, -.]");
-//     if (std::regex_match(str, noSpecial))
-//         std::cout << "STRING IS GOOD";
-//     else
-//         std::cout << "STRING IS NO GOOD";
+//     while ((!checkIfInteger(str)))
+//     {
+//         system("clear");
+
+//         std::cout << "Invalid entry...keep it integers only" << std::endl;
+//         std::cin.clear();
+//         std::cin.ignore();
+//         std::cout << std::endl
+//                   << question << std::endl;
+//         std::cin >> str;
+//     }
+//     return std::stoi(str);
 // }
-// bool ErrorHandling::matchChars(std::string chars)
-// {
-//     std::regex valid("[a-zA-Z0-9.-, ]{4,}");
-//     return std::regex_match(chars, valid);
-// }
+bool ErrorHandling::matchChars(std::string chars)
+{
+    std::regex valid("[ ,A-Za-z0-9_.-]+");
+    return std::regex_match(chars.begin(), chars.end(), valid);
+}

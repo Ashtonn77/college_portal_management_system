@@ -15,6 +15,7 @@ public:
     int countRows();
     void readRecord(long long id);
     int updateRecordInTable(long long id, std::string column, std::string attribute);
+    int tableCount();
 
 protected:
 };
