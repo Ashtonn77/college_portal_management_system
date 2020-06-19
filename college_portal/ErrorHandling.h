@@ -12,7 +12,7 @@ public:
     bool checkIfInteger(std::string num);
     bool matchChars(std::string chars);
     std::string validStringInput(std::string &str, std::string question);
-    int validIntegerInput(std::string &str, std::string question);
+    std::string validIntegerInput(std::string &str, std::string question);
     std::string validAddress(std::string &str, std::string question);
 };
 

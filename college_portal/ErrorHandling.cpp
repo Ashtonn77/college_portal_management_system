@@ -27,6 +27,12 @@ bool ErrorHandling::checkIfInteger(std::string num)
     return true;
 }
 
+bool ErrorHandling::matchChars(std::string chars)
+{
+    std::regex valid("[ ,A-Za-z0-9_.-]+");
+    return std::regex_match(chars.begin(), chars.end(), valid);
+}
+
 std::string ErrorHandling::validStringInput(std::string &str, std::string question)
 {
     while ((!checkIfAllLetters(str)) || str.length() < 2)
@@ -45,7 +51,7 @@ std::string ErrorHandling::validStringInput(std::string &str, std::string questi
     return str;
 }
 
-int ErrorHandling::validIntegerInput(std::string &str, std::string question)
+std::string ErrorHandling::validIntegerInput(std::string &str, std::string question)
 {
     while ((!checkIfInteger(str)))
     {
@@ -58,28 +64,23 @@ int ErrorHandling::validIntegerInput(std::string &str, std::string question)
                   << question << std::endl;
         std::cin >> str;
     }
-    return std::stoi(str);
+    return str;
 }
 
 //write valid function to validate address
 
-// std::string ErrorHandling::validAddress(std::string &str, std::string question)
-// {
-//     while ((!checkIfInteger(str)))
-//     {
-//         system("clear");
-
-//         std::cout << "Invalid entry...keep it integers only" << std::endl;
-//         std::cin.clear();
-//         std::cin.ignore();
-//         std::cout << std::endl
-//                   << question << std::endl;
-//         std::cin >> str;
-//     }
-//     return std::stoi(str);
-// }
-bool ErrorHandling::matchChars(std::string chars)
+std::string ErrorHandling::validAddress(std::string &str, std::string question)
 {
-    std::regex valid("[ ,A-Za-z0-9_.-]+");
-    return std::regex_match(chars.begin(), chars.end(), valid);
+    while ((!matchChars(str)))
+    {
+        system("clear");
+
+        std::cout << "Invalid entry...keep it letters, numbers, spaces and (.,_-) only" << std::endl;
+        std::cin.clear();
+        //std::cin.ignore();
+        std::cout << std::endl
+                  << question << std::endl;
+        std::getline(std::cin >> std::ws, str);
+    }
+    return str;
 }
