@@ -15,13 +15,14 @@ static int countCallback(void *count, int argc, char **argv, char **azColName)
     return 0;
 }
 
-int Database::countRows()
+//count rows;
+int Database::countRows(std::string tableName)
 {
     sqlite3 *Db;
     char *messageError;
     int count = 0;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string query = "SELECT COUNT(*) FROM Person;";
+    std::string query = "SELECT COUNT(*) FROM " + tableName;
     int r = sqlite3_exec(Db, query.c_str(), countCallback, &count, &messageError);
     return count;
 }
@@ -60,7 +61,7 @@ int Database::openDatabase()
 int Database::createPersonTable()
 {
     sqlite3 *Db;
-    if (countRows() > 0)
+    if (countRows("Person") > 0)
     {
         std::cout << " " << std::endl;
         return 0;
@@ -112,14 +113,23 @@ static int callback(void *data, int argc, char **argv, char **azColName)
 //end print table state
 
 //check values in table
-void Database::checkTableState()
+void Database::checkTableState(std::string tableName)
 {
     sqlite3 *Db;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string query = "SELECT * FROM Person";
+    std::string query = "SELECT * FROM " + tableName;
     sqlite3_exec(Db, query.c_str(), callback, NULL, NULL);
-    if (countRows() < 1)
+    if (countRows(tableName) < 1)
         std::cout << "There are no records in table" << std::endl;
+    else
+    {
+        if (countRows(tableName) == 1)
+            std::cout << "There is " << countRows(tableName) << " record currently in table" << std::endl;
+        else
+        {
+            std::cout << "There are " << countRows(tableName) << " records currently in table" << std::endl;
+        }
+    }
 }
 
 //insert
@@ -210,3 +220,69 @@ int Database::updateRecordInTable(long long id, std::string column, std::string 
     sqlite3_close(Db);
     return 0;
 }
+
+//student section
+
+//create Student table
+int Database::createStudentTable()
+{
+    sqlite3 *Db;
+    if (countRows("Student") > 0)
+    {
+        std::cout << " " << std::endl;
+        return 0;
+    }
+    std::string sql = "CREATE TABLE Student("
+                      "ID          INT PRIMARY KEY         NOT NULL, "
+                      "NAME        TEXT                    NOT NULL, "
+                      "SURNAME     TEXT                    NOT NULL, "
+                      "AGE         INT                     NOT NULL, "
+                      "DEPARTMENT     CHAR(50)             NOT NULL, "
+                      "ADDRESS        CHAR(50)             NOT NULL, "
+                      "COURSENAME     TEXT                 NOT NULL );";
+    int exit{0};
+    exit = sqlite3_open("sqliteDb/college.db", &Db);
+    char *messageError;
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+
+    if (tableCount() > 0)
+    {
+        std::cout << " ";
+        return 0;
+    }
+
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error creating Student Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Student Table created successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//insert into student Table
+int Database::insertIntoStudentTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string courseName)
+{
+    sqlite3 *Db;
+    char *messageError;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+
+    std::string sql = "INSERT INTO Student VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + dept + "', '" + address + "', '" + courseName + "');";
+
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error inserting data into Student Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Data inserted successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//end Student section

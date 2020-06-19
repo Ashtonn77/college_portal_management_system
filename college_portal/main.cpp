@@ -9,7 +9,6 @@
 #include "Admin.h"
 #include "Database.h"
 #include "ErrorHandling.h"
-#include "StudentDb.h"
 
 void welcomeMsg()
 {
@@ -26,13 +25,10 @@ void welcomeMsg()
 int main(int argc, char **argv)
 {
     Database s;
-    StudentDb student;
+
     s.openDatabase();
     s.createPersonTable();
-    student.openDatabase();
-    student.createStudentTable();
-    student.createStudentCourseTable();
-    student.createCourseTable();
+    s.createStudentTable();
     std::cout << std::endl;
 
     welcomeMsg();
@@ -73,9 +69,7 @@ int main(int argc, char **argv)
             std::cout << "Welcome faculty " << std::endl;
             {
                 // Faculty f;
-                StudentDb e;
-                // e.test();
-                //std::cout << e.test() << std::endl;
+
                 break;
             }
 
@@ -108,7 +102,7 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState();
+            s.checkTableState("Student");
             break;
         }
         case 7:

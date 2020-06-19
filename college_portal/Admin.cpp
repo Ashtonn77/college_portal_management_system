@@ -89,6 +89,19 @@ void Admin::personUpdate(std::string dept)
 }
 //end update
 
+//student section
+
+void Admin::addNewStudent()
+{
+    std::string courseName{};
+    std::cout << "Enter course name applicable for student__" << std::endl;
+    std::cin >> courseName;
+
+    d.insertIntoStudentTable(idNumber, firstName, lastName, age, address, a.departmentTitle, courseName);
+}
+
+//end student section
+
 //action for db
 void dbAction(std::string dept)
 {
@@ -104,6 +117,7 @@ void dbAction(std::string dept)
         std::cout << "3. Delete " << dept << std::endl;
         std::cout << "4. Read record of " << dept << std::endl;
         std::cout << "5. Back" << std::endl;
+        std::cout << "6. Test" << std::endl;
 
         std::cin >> choice;
 
@@ -140,6 +154,13 @@ void dbAction(std::string dept)
         {
             system("clear");
             std::cout << "Access another department or go back? " << std::endl;
+            break;
+        }
+        case 6:
+        {
+            system("clear");
+            a.getDetails(a, dept);
+            a.addNewStudent();
             break;
         }
         default:

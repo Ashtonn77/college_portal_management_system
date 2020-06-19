@@ -13,6 +13,7 @@ public:
     void personDelete(std::string dept);
     void personRead(std::string dept);
     void personUpdate(std::string dept);
+    void addNewStudent();
 
 protected:
 };
