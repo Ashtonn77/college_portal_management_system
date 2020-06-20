@@ -58,21 +58,22 @@ int Database::openDatabase()
 }
 
 //create table
-int Database::createPersonTable()
+int Database::createAdminTable()
 {
     sqlite3 *Db;
-    if (countRows("Person") > 0)
+    if (countRows("Admin") > 0)
     {
         std::cout << " " << std::endl;
         return 0;
     }
-    std::string sql = "CREATE TABLE Person("
+    std::string sql = "CREATE TABLE Admin("
                       "ID          INT PRIMARY KEY         NOT NULL, "
                       "NAME        TEXT                    NOT NULL, "
                       "SURNAME     TEXT                    NOT NULL, "
                       "AGE         INT                     NOT NULL, "
                       "DEPARTMENT     CHAR(50)             NOT NULL, "
-                      "ADDRESS     CHAR(50)                        );";
+                      "ADDRESS     CHAR(50)                NOT NULL, "
+                      "SALARY      FLOAT                    NOT NULL);";
 
     int exit{0};
     exit = sqlite3_open("sqliteDb/college.db", &Db);
@@ -87,11 +88,11 @@ int Database::createPersonTable()
 
     if (exit != SQLITE_OK)
     {
-        std::cout << "Error creating Person Table" << std::endl;
+        std::cout << "Error creating Admin Table" << std::endl;
         sqlite3_free(messageError);
     }
     else
-        std::cout << "Person Table created successfully" << std::endl;
+        std::cout << "Admin Table created successfully" << std::endl;
 
     sqlite3_close(Db);
     return 0;
@@ -133,18 +134,18 @@ void Database::checkTableState(std::string tableName)
 }
 
 //insert
-int Database::insertIntoTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept)
+int Database::insertIntoAdminTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, long double salary)
 {
     sqlite3 *Db;
     char *messageError;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
 
-    std::string sql = "INSERT INTO Person VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + dept + "', '" + address + "');";
+    std::string sql = "INSERT INTO Admin VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + dept + "', '" + address + "', '" + std::to_string(salary) + "');";
 
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
     if (exit != SQLITE_OK)
     {
-        std::cout << "Error inserting data into Person Table" << std::endl;
+        std::cout << "Error inserting data into Admin Table" << std::endl;
         sqlite3_free(messageError);
     }
     else
@@ -155,12 +156,12 @@ int Database::insertIntoTable(long long id, std::string name, std::string surnam
 }
 
 //delete
-int Database::deleteRecordFromTable(long long id)
+int Database::deleteRecordFromTable(long long id, std::string tableName)
 {
     sqlite3 *Db;
     char *messageError;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string sql = "DELETE FROM Person WHERE id = " + std::to_string(id);
+    std::string sql = "DELETE FROM " + tableName + " WHERE id = " + std::to_string(id);
 
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
     if (exit != SQLITE_OK)
@@ -176,11 +177,11 @@ int Database::deleteRecordFromTable(long long id)
 }
 
 //read
-void Database::readRecord(long long id)
+void Database::readRecord(long long id, std::string tableName)
 {
     sqlite3 *Db;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string query = "SELECT * FROM Person WHERE ID=" + std::to_string(id);
+    std::string query = "SELECT * FROM " + tableName + " WHERE ID=" + std::to_string(id);
 
     struct sqlite3_stmt *selectstmt;
     int result = sqlite3_prepare_v2(Db, query.c_str(), -1, &selectstmt, NULL);
@@ -200,12 +201,12 @@ void Database::readRecord(long long id)
 }
 
 //update
-int Database::updateRecordInTable(long long id, std::string column, std::string attribute)
+int Database::updateRecordInTable(long long id, std::string column, std::string attribute, std::string tableName)
 {
     sqlite3 *Db;
     char *messageError;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string sql = "UPDATE Person SET '" + column + "'='" + attribute + "' WHERE id = " + std::to_string(id);
+    std::string sql = "UPDATE " + tableName + " SET '" + column + "'='" + attribute + "' WHERE id = " + std::to_string(id);
 
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
 

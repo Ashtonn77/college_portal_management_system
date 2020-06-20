@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     Database s;
 
     s.openDatabase();
-    s.createPersonTable();
+    s.createAdminTable();
     s.createStudentTable();
     s.createFacultyTable();
     s.createStaffTable();
@@ -104,7 +104,7 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState("Staff");
+            s.checkTableState("Admin");
             break;
         }
         case 7:
