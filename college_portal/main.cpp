@@ -29,6 +29,8 @@ int main(int argc, char **argv)
     s.openDatabase();
     s.createPersonTable();
     s.createStudentTable();
+    s.createFacultyTable();
+    s.createStaffTable();
     std::cout << std::endl;
 
     welcomeMsg();
@@ -102,7 +104,7 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState("Student");
+            s.checkTableState("Staff");
             break;
         }
         case 7:

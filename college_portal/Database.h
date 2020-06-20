@@ -18,6 +18,10 @@ public:
     int tableCount();
     int createStudentTable();
     int insertIntoStudentTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string courseName);
+    int createFacultyTable();
+    int insertIntoFacultyTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string courseOne, std::string courseTwo, std::string courseThree, long double salary);
+    int createStaffTable();
+    int insertIntoStaffTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string jobTitle, long double salary);
 
 protected:
 };

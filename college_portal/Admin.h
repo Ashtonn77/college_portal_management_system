@@ -14,6 +14,8 @@ public:
     void personRead(std::string dept);
     void personUpdate(std::string dept);
     void addNewStudent();
+    void addNewFaculty();
+    void addNewStaff();
 
 protected:
 };

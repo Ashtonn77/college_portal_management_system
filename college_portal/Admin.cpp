@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <vector>
 #include "Admin.h"
 #include "Database.h"
 
@@ -90,7 +91,6 @@ void Admin::personUpdate(std::string dept)
 //end update
 
 //student section
-
 void Admin::addNewStudent()
 {
     std::string courseName{};
@@ -99,8 +99,48 @@ void Admin::addNewStudent()
 
     d.insertIntoStudentTable(idNumber, firstName, lastName, age, address, a.departmentTitle, courseName);
 }
-
 //end student section
+
+//faculty section
+void Admin::addNewFaculty()
+{
+    std::vector<std::string> lecturerCourses{"N/A", "N/A", "N/A"};
+    int c{};
+    std::cout << "How many courses/subjects does the lecturer teach?__";
+    std::cin >> c;
+
+    for (int i = 0; i < c; i++)
+    {
+        std::cin.clear();
+        std::cout << "Please enter course/subject name__";
+        std::cin >> lecturerCourses[i];
+    }
+
+    long double salary = {0.0};
+    std::cout << "Enter faculty's monthly salary__";
+    std::cin >> salary;
+
+    d.insertIntoFacultyTable(idNumber, firstName, lastName, age, address, a.departmentTitle, lecturerCourses[0], lecturerCourses[1], lecturerCourses[2], salary);
+}
+
+//end faculty section
+
+//staff section
+void Admin::addNewStaff()
+{
+
+    std::string jobTitle{};
+    std::cout << "Enter staff's job title__";
+    std::getline(std::cin >> std::ws, jobTitle);
+
+    long double salary = {0.0};
+    std::cout << "Enter staff's monthly salary__";
+    std::cin >> salary;
+
+    d.insertIntoStaffTable(idNumber, firstName, lastName, age, address, a.departmentTitle, jobTitle, salary);
+}
+
+//end staff section
 
 //action for db
 void dbAction(std::string dept)
@@ -160,7 +200,7 @@ void dbAction(std::string dept)
         {
             system("clear");
             a.getDetails(a, dept);
-            a.addNewStudent();
+            a.addNewStaff();
             break;
         }
         default:

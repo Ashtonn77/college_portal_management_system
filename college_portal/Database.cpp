@@ -286,3 +286,135 @@ int Database::insertIntoStudentTable(long long id, std::string name, std::string
 }
 
 //end Student section
+
+//create Faculty table
+int Database::createFacultyTable()
+{
+    sqlite3 *Db;
+    if (countRows("Faculty") > 0)
+    {
+        std::cout << " " << std::endl;
+        return 0;
+    }
+    std::string sql = "CREATE TABLE Faculty("
+                      "ID          INT PRIMARY KEY         NOT NULL, "
+                      "NAME        TEXT                    NOT NULL, "
+                      "SURNAME     TEXT                    NOT NULL, "
+                      "AGE         INT                     NOT NULL, "
+                      "DEPARTMENT     CHAR(50)             NOT NULL, "
+                      "ADDRESS        CHAR(50)             NOT NULL, "
+                      "COURSETEACHINGONE     TEXT          NOT NULL, "
+                      "COURSETEACHINGTWO     TEXT          NOT NULL, "
+                      "COURSETEACHINGTHREE   TEXT          NOT NULL, "
+                      "SALARY      FLOAT                     NOT NULL );";
+    int exit{0};
+    exit = sqlite3_open("sqliteDb/college.db", &Db);
+    char *messageError;
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+
+    if (tableCount() > 0)
+    {
+        std::cout << " ";
+        return 0;
+    }
+
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error creating Faculty Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Faculty Table created successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//insert into Faculty Table
+int Database::insertIntoFacultyTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string courseOne, std::string courseTwo, std::string courseThree, long double salary)
+{
+    sqlite3 *Db;
+    char *messageError;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+
+    std::string sql = "INSERT INTO Faculty VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + dept + "', '" + address + "', '" + courseOne + "', '" + courseTwo + "', '" + courseThree + "', '" + std::to_string(salary) + "');";
+
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error inserting data into Faculty Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Data inserted successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//end Faculty section
+
+//create Staff table
+int Database::createStaffTable()
+{
+    sqlite3 *Db;
+    if (countRows("Staff") > 0)
+    {
+        std::cout << " " << std::endl;
+        return 0;
+    }
+    std::string sql = "CREATE TABLE Staff("
+                      "ID          INT PRIMARY KEY         NOT NULL, "
+                      "NAME        TEXT                    NOT NULL, "
+                      "SURNAME     TEXT                    NOT NULL, "
+                      "AGE         INT                     NOT NULL, "
+                      "DEPARTMENT     CHAR(50)             NOT NULL, "
+                      "ADDRESS        CHAR(50)             NOT NULL, "
+                      "JOBTITLE       TEXT                 NOT NULL, "
+                      "SALARY      FLOAT                    NOT NULL );";
+    int exit{0};
+    exit = sqlite3_open("sqliteDb/college.db", &Db);
+    char *messageError;
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+
+    if (tableCount() > 0)
+    {
+        std::cout << " ";
+        return 0;
+    }
+
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error creating Staff Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Staff Table created successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//insert into Staff Table
+int Database::insertIntoStaffTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string jobTitle, long double salary)
+{
+    sqlite3 *Db;
+    char *messageError;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+
+    std::string sql = "INSERT INTO Staff VALUES(" + std::to_string(id) + ", '" + name + "', '" + surname + "'," + std::to_string(age) + ", '" + dept + "', '" + address + "', '" + jobTitle + "', '" + std::to_string(salary) + "');";
+
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error inserting data into Staff Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Data inserted successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//end Staff section
