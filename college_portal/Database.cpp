@@ -419,3 +419,45 @@ int Database::insertIntoStaffTable(long long id, std::string name, std::string s
 }
 
 //end Staff section
+
+//print welcome msg
+static int welcomeCallback(void *data, int argc, char **argv, char **azColName)
+{
+    system("clear");
+    int i;
+
+    for (i = 0; i < argc; i++)
+    {
+        std::cout << "You signed in as, " << argv[i] << std::endl;
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+    return 0;
+}
+//print welcome msg
+
+//read single value
+int Database::readSingleRecord(long long id, std::string tableName)
+{
+    sqlite3 *Db;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string query = "SELECT name FROM " + tableName + " WHERE ID=" + std::to_string(id);
+
+    struct sqlite3_stmt *selectstmt;
+    int result = sqlite3_prepare_v2(Db, query.c_str(), -1, &selectstmt, NULL);
+    if (result == SQLITE_OK)
+    {
+        if (sqlite3_step(selectstmt) == SQLITE_ROW)
+        {
+            sqlite3_exec(Db, query.c_str(), welcomeCallback, NULL, NULL);
+        }
+        else
+        {
+            system("clear");
+            std::cout << "Sorry, we don\'t seem to have a record with that i.d number in our system." << std::endl;
+            return -1;
+        }
+    }
+    sqlite3_finalize(selectstmt);
+}
+//end read single value

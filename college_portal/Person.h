@@ -12,6 +12,7 @@ public:
     void getDetails(Person &p, std::string dept);
     std::string userTitle{};
     std::string departmentTitle{};
+    long long login();
 
 protected:
     std::string firstName{};

@@ -60,9 +60,17 @@ int main(int argc, char **argv)
             system("clear");
             std::cout << "Welcome admin " << std::endl;
             {
-                Admin a;
-                a.userTitle = "Admin";
-                a.task();
+                Admin admin;
+                admin.userTitle = "Admin";
+                if (s.readSingleRecord(admin.login(), admin.userTitle) != -1)
+                {
+                    admin.task();
+                }
+                else
+                {
+                    std::cout << std::endl;
+                    std::cout << "How would you like to proceed?" << std::endl;
+                }
                 break;
             }
 
@@ -70,7 +78,17 @@ int main(int argc, char **argv)
             system("clear");
             std::cout << "Welcome faculty " << std::endl;
             {
-                // Faculty f;
+                Faculty faculty;
+                faculty.userTitle = "Faculty";
+                if (s.readSingleRecord(faculty.login(), faculty.userTitle) != -1)
+                {
+                    std::cout << "Everything seems to be in order" << std::endl;
+                }
+                else
+                {
+                    std::cout << std::endl;
+                    std::cout << "How would you like to proceed?" << std::endl;
+                }
 
                 break;
             }
@@ -79,9 +97,17 @@ int main(int argc, char **argv)
             system("clear");
             std::cout << "Welcome staff " << std::endl;
             {
-                // Staff d;
-                // d.userTitle = "Staff";
-                // d.getDetails(d);
+                Staff staff;
+                staff.userTitle = "Staff";
+                if (s.readSingleRecord(staff.login(), staff.userTitle) != -1)
+                {
+                    std::cout << "Everything seems to be in order" << std::endl;
+                }
+                else
+                {
+                    std::cout << std::endl;
+                    std::cout << "How would you like to proceed?" << std::endl;
+                }
 
                 break;
             }
@@ -90,11 +116,17 @@ int main(int argc, char **argv)
             system("clear");
             std::cout << "Welcome student " << std::endl;
             {
-                // Student p;
-                // p.userTitle = "Student";
-                // p.getDetails(p);
-                // //p.studentInsert();
-                // // p.studentDelete();
+                Student student;
+                student.userTitle = "Student";
+                if (s.readSingleRecord(student.login(), student.userTitle) != -1)
+                {
+                    std::cout << "Everything seems to be in order" << std::endl;
+                }
+                else
+                {
+                    std::cout << std::endl;
+                    std::cout << "How would you like to proceed?" << std::endl;
+                }
                 break;
             }
 
@@ -104,12 +136,13 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState("Admin");
+            s.checkTableState("Staff");
+
             break;
         }
         case 7:
         {
-
+            //s.readSingleRecord(120, "Admin");
             break;
         }
 

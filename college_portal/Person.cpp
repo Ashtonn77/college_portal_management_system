@@ -44,3 +44,13 @@ void Person::getDetails(Person &p, std::string dept)
     resAdd = errChk.validAddress(resAdd, "Re-enter address__");
     p.address = resAdd;
 }
+
+long long Person::login()
+{
+    std::string temp{};
+    long long id{0};
+    std::cout << "Please enter you i.d number to login__" << std::endl;
+    std::cin >> temp;
+    id = std::stoll(errChk.validIntegerInput(temp, "Re-enter age__"));
+    return id;
+}
