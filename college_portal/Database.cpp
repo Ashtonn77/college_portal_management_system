@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include <sqlite3.h>
 #include <string>
 #include "Database.h"
@@ -189,6 +190,7 @@ void Database::readRecord(long long id, std::string tableName)
     {
         if (sqlite3_step(selectstmt) == SQLITE_ROW)
         {
+            system("clear");
             sqlite3_exec(Db, query.c_str(), callback, NULL, NULL);
         }
         else
@@ -441,7 +443,7 @@ int Database::readSingleRecord(long long id, std::string tableName)
 {
     sqlite3 *Db;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string query = "SELECT name FROM " + tableName + " WHERE ID=" + std::to_string(id);
+    std::string query = "SELECT NAME FROM " + tableName + " WHERE ID=" + std::to_string(id);
 
     struct sqlite3_stmt *selectstmt;
     int result = sqlite3_prepare_v2(Db, query.c_str(), -1, &selectstmt, NULL);

@@ -117,10 +117,11 @@ int main(int argc, char **argv)
             std::cout << "Welcome student " << std::endl;
             {
                 Student student;
+                int i = 0;
                 student.userTitle = "Student";
-                if (s.readSingleRecord(student.login(), student.userTitle) != -1)
+                if (s.readSingleRecord(i = student.login(), student.userTitle) != -1)
                 {
-                    student.studentTask();
+                    student.studentTask(i, student.userTitle);
                 }
                 else
                 {
@@ -136,7 +137,7 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState("Faculty");
+            s.checkTableState("Student");
 
             break;
         }

@@ -13,6 +13,7 @@ public:
     std::string userTitle{};
     std::string departmentTitle{};
     long long login();
+    std::string x = "Test";
 
 protected:
     std::string firstName{};
