@@ -120,7 +120,7 @@ int main(int argc, char **argv)
                 student.userTitle = "Student";
                 if (s.readSingleRecord(student.login(), student.userTitle) != -1)
                 {
-                    std::cout << "Everything seems to be in order" << std::endl;
+                    student.studentTask();
                 }
                 else
                 {
@@ -136,7 +136,7 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState("Staff");
+            s.checkTableState("Faculty");
 
             break;
         }

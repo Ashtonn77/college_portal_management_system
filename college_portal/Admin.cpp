@@ -3,15 +3,18 @@
 #include <vector>
 #include "Admin.h"
 #include "Database.h"
+#include "ErrorHandling.h"
 
 Database d;
 Admin a;
+ErrorHandling err;
+
 Admin::Admin(std::string fName, std::string lName, long long int id, std::string e, int age)
     : Employee{fName, lName, id, e, age} {}
 
 Admin::~Admin() {}
 
-void displayIdPrompt(std::string d, std::string c)
+void Admin::displayIdPrompt(std::string d, std::string c)
 {
     std::cout << "Enter i.d number of " << d << " you want to " << c << "___";
 }
@@ -50,6 +53,7 @@ std::string columnToUpdateAdmin()
 {
     //system("clear");
     std::string colName{};
+    std::string temp{};
     int choice = -1;
 
     std::cout << "Which field would you like to update? " << std::endl;
@@ -61,7 +65,8 @@ std::string columnToUpdateAdmin()
     std::cout << "4. Change address " << std::endl;
     std::cout << "5. Change salary " << std::endl;
 
-    std::cin >> choice;
+    std::cin >> temp;
+    choice = std::stoi(err.validIntegerInput(temp, "Re-enter choice"));
 
     if (choice == 1)
         colName = "NAME";
@@ -83,6 +88,7 @@ std::string columnToUpdateFaculty()
 {
     //system("clear");
     std::string colName{};
+    std::string temp{};
     int choice = -1;
 
     std::cout << "Which field would you like to update? " << std::endl;
@@ -97,7 +103,8 @@ std::string columnToUpdateFaculty()
     std::cout << "7. Change third course/subject " << std::endl;
     std::cout << "8. Change salary " << std::endl;
 
-    std::cin >> choice;
+    std::cin >> temp;
+    choice = std::stoi(err.validIntegerInput(temp, "Re-enter choice"));
 
     if (choice == 1)
         colName = "NAME";
@@ -125,6 +132,7 @@ std::string columnToUpdateStaff()
 {
     //system("clear");
     std::string colName{};
+    std::string temp{};
     int choice = -1;
 
     std::cout << "Which field would you like to update? " << std::endl;
@@ -137,7 +145,8 @@ std::string columnToUpdateStaff()
     std::cout << "5. Change job title" << std::endl;
     std::cout << "6. Change salary " << std::endl;
 
-    std::cin >> choice;
+    std::cin >> temp;
+    choice = std::stoi(err.validIntegerInput(temp, "Re-enter choice"));
 
     if (choice == 1)
         colName = "NAME";
@@ -162,7 +171,7 @@ std::string columnToUpdateStudent()
     //system("clear");
     std::string colName{};
     int choice = -1;
-
+    std::string temp{};
     std::cout << "Which field would you like to update? " << std::endl;
 
     std::cout << std::endl;
@@ -172,7 +181,8 @@ std::string columnToUpdateStudent()
     std::cout << "4. Change address " << std::endl;
     std::cout << "5. Change course " << std::endl;
 
-    std::cin >> choice;
+    std::cin >> temp;
+    choice = std::stoi(err.validIntegerInput(temp, "Re-enter choice"));
 
     if (choice == 1)
         colName = "NAME";
@@ -206,14 +216,21 @@ void Admin::personUpdate(std::string dept)
     else if (dept == "Student")
         colName = columnToUpdateStudent();
     else if (dept == "Admin")
-        //admin update
+        colName = columnToUpdateAdmin();
 
-        while (colName == "Invalid")
-        {
-            system("clear");
-            std::cout << "Sorry, that's an invalid entry...try again" << std::endl;
+    while (colName == "Invalid")
+    {
+        system("clear");
+        std::cout << "Sorry, that's an invalid entry...try again" << std::endl;
+        if (dept == "Faculty")
             colName = columnToUpdateFaculty();
-        }
+        else if (dept == "Staff")
+            colName = columnToUpdateStaff();
+        else if (dept == "Student")
+            colName = columnToUpdateStudent();
+        else if (dept == "Admin")
+            colName = columnToUpdateAdmin();
+    }
     std::cout << "To what would you like to change the current attribute?" << std::endl;
     std::getline(std::cin >> std::ws, str);
     d.updateRecordInTable(id, colName, str, dept);
@@ -304,20 +321,20 @@ void dbAction(std::string dept)
         {
             system("clear");
             //update record function
-            // a.personUpdate(a.departmentTitle);
+            a.personUpdate(a.departmentTitle);
             break;
         }
 
         case 3:
         {
             system("clear");
-            // a.personDelete(a.departmentTitle);
+            a.personDelete(a.departmentTitle);
             break;
         }
         case 4:
         {
             system("clear");
-            // a.personRead(a.departmentTitle);
+            a.personRead(a.departmentTitle);
             break;
         }
         case 5:

@@ -55,7 +55,7 @@ std::string ErrorHandling::validIntegerInput(std::string &str, std::string quest
 {
     while ((!checkIfInteger(str)))
     {
-        system("clear");
+        // system("clear");
 
         std::cout << "Invalid entry...keep it integers only" << std::endl;
         std::cin.clear();

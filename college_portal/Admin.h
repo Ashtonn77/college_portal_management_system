@@ -16,6 +16,7 @@ public:
     void addNewStudent();
     void addNewFaculty();
     void addNewStaff();
+    void displayIdPrompt(std::string d, std::string c);
 
 protected:
 };
