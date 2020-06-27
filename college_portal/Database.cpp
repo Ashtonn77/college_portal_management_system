@@ -29,14 +29,26 @@ int Database::countRows(std::string tableName)
 }
 
 ///check if table exists
-int Database::tableCount()
+int Database::tableCount(std::string tableName)
 {
 
     sqlite3 *Db;
     char *messageError;
     int count = 0;
     int exit = sqlite3_open("sqliteDb/college.db", &Db);
-    std::string query = "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name = 'Person'";
+    std::string query = "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name = '" + tableName + "'";
+    int r = sqlite3_exec(Db, query.c_str(), countCallback, &count, &messageError);
+    return count;
+}
+
+//check if value exits;
+int Database::checkId(std::string tableName, long long id)
+{
+    sqlite3 *Db;
+    char *messageError;
+    int count = 0;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string query = "SELECT COUNT(*) FROM " + tableName + " WHERE ID=" + std::to_string(id);
     int r = sqlite3_exec(Db, query.c_str(), countCallback, &count, &messageError);
     return count;
 }
@@ -81,7 +93,7 @@ int Database::createAdminTable()
     char *messageError;
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
 
-    if (tableCount() > 0)
+    if (tableCount("Admin") > 0)
     {
         std::cout << " ";
         return 0;
@@ -248,7 +260,7 @@ int Database::createStudentTable()
     char *messageError;
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
 
-    if (tableCount() > 0)
+    if (tableCount("Student") > 0)
     {
         std::cout << " ";
         return 0;
@@ -315,7 +327,7 @@ int Database::createFacultyTable()
     char *messageError;
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
 
-    if (tableCount() > 0)
+    if (tableCount("Faculty") > 0)
     {
         std::cout << " ";
         return 0;
@@ -380,7 +392,7 @@ int Database::createStaffTable()
     char *messageError;
     exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
 
-    if (tableCount() > 0)
+    if (tableCount("Staff") > 0)
     {
         std::cout << " ";
         return 0;

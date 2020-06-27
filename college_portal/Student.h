@@ -11,6 +11,10 @@ public:
     void studentTask(long long id, std::string tableName);
     void studentRead(std::string dept, long long id);
     int readStudentCourse(long long id, std::string tableName);
+    int createStudentAccountTable();
+    int insertIntoStudentAccount(long long id, long double balance, std::string tableName);
+    void makePayment(long long id);
+    int readStudentBalance(long long id, std::string tableName);
 
 protected:
 };

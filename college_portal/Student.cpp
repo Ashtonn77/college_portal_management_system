@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sqlite3.h>
 #include <sstream>
+#include <stdlib.h>
 #include "Student.h"
 #include "Database.h"
 #include "ErrorHandling.h"
@@ -16,7 +17,7 @@ Student::Student(std::string fName, std::string lName, long long int id, std::st
 
 Student::~Student() {}
 
-void firstYear()
+void firstYearBsc()
 {
     std::cout << "+--------------+-------------------+--------------+----------------+-------------------------+" << std::endl;
     std::cout << "|------------------------------------FIRST YEAR BSC------------------------------------------|" << std::endl;
@@ -26,7 +27,7 @@ void firstYear()
     std::cout << std::endl;
 }
 
-void secondYear()
+void secondYearBsc()
 {
     std::cout << "+--------------+-------------------+-----------------+-------------------------+" << std::endl;
     std::cout << "|--------------------------------SECOND YEAR BSC-------------------------------|" << std::endl;
@@ -42,7 +43,7 @@ void secondYear()
     std::cout << std::endl;
 }
 
-void thirdYear()
+void thirdYearBsc()
 {
     std::cout << "+-------------------------------+------------------------------+-------------------+-------------------------+" << std::endl;
     std::cout << "|----------------------------------------------THIRD YEAR BSC------------------------------------------------|" << std::endl;
@@ -59,7 +60,49 @@ void thirdYear()
     std::cout << std::endl;
 }
 
-//print welcome msg
+void firstYearBcom()
+{
+    std::cout << "+----------------------------+------------------+-----------------+---------------------------+-------------------------+" << std::endl;
+    std::cout << "|-------------------------------------------------FIRST YEAR BCOM-------------------------------------------------------|" << std::endl;
+    std::cout << "+----------------------------+------------------+-----------------+---------------------------+-------------------------+" << std::endl;
+    std::cout << "|   Business Management 511  |  Economics  511  |  Accounting 511 |  Business Statistics 511  | Information Systems 511 |" << std::endl;
+    std::cout << "+----------------------------+------------------+-----------------+---------------------------+-------------------------+" << std::endl;
+    std::cout << std::endl;
+}
+
+void secondYearBcom()
+{
+    std::cout << "+----------------------------+------------------+-----------------+---------------------------+" << std::endl;
+    std::cout << "|---------------------------------------SECOND YEAR BCOM--------------------------------------|" << std::endl;
+    std::cout << "+----------------------------+------------------+-----------------+---------------------------+" << std::endl;
+    std::cout << "|   Business Management 612  |  Economics  612  |  Accounting 612 |  Business Statistics 612  |" << std::endl;
+    std::cout << "+----------------------------+------------------+-----------------+---------------------------+" << std::endl;
+    std::cout << std::endl;
+    std::cout << "+------------------+-------------------------+----------------------+" << std::endl;
+    std::cout << "|-------------------SECOND YEAR BCOM ELECTIVES----------------------|" << std::endl;
+    std::cout << "+------------------+-------------------------+----------------------+" << std::endl;
+    std::cout << "|  Commercial Law  |   Stakeholder Relations |  Business Accounting |" << std::endl;
+    std::cout << "+------------------+-------------------------+----------------------+" << std::endl;
+    std::cout << std::endl;
+}
+
+void thirdYearBcom()
+{
+    std::cout << "+-----------------------------+-----------------------+-----------------+---------------------------------+" << std::endl;
+    std::cout << "|------------------------------------------THIRD YEAR BCOM------------------------------------------------|" << std::endl;
+    std::cout << "+-----------------------------+-----------------------+-----------------+---------------------------------+" << std::endl;
+    std::cout << "|   Strategic Management 731  |  Market Research 700  |  Accounting 731 |  Human Resource Management 731  |" << std::endl;
+    std::cout << "+-----------------------------+-----------------------+-----------------+---------------------------------+" << std::endl;
+    std::cout << std::endl;
+    std::cout << "+------------------+------------------------+-----------------------+" << std::endl;
+    std::cout << "|--------------------THIRD YEAR BCOM ELECTIVES----------------------|" << std::endl;
+    std::cout << "+------------------+-------------------------+----------------------+" << std::endl;
+    std::cout << "|  Commercial Law  |   Stakeholder Relations |  Business Accounting |" << std::endl;
+    std::cout << "+------------------+-------------------------+----------------------+" << std::endl;
+    std::cout << std::endl;
+}
+
+//print course details msg
 static int courseDisplayCallBack(void *data, int argc, char **argv, char **azColName)
 {
     system("clear");
@@ -74,13 +117,17 @@ static int courseDisplayCallBack(void *data, int argc, char **argv, char **azCol
 
         if (s == "Bsc")
         {
-            firstYear();
-            secondYear();
-            thirdYear();
+            system("clear");
+            firstYearBsc();
+            secondYearBsc();
+            thirdYearBsc();
         }
-        else if (argv[i] == "Bcom")
+        else if (s == "Bcom")
         {
-            std::cout << "Feature pending" << std::endl;
+            system("clear");
+            firstYearBcom();
+            secondYearBcom();
+            thirdYearBcom();
         }
         else
         {
@@ -92,7 +139,6 @@ static int courseDisplayCallBack(void *data, int argc, char **argv, char **azCol
     std::cout << std::endl;
     return 0;
 }
-//print welcome msg
 
 //read course values
 int Student::readStudentCourse(long long id, std::string tableName)
@@ -120,13 +166,129 @@ int Student::readStudentCourse(long long id, std::string tableName)
 }
 //end read course values
 
+//create StudentAccount table
+int Student::createStudentAccountTable()
+{
+    sqlite3 *Db;
+    if (studentDb.countRows("StudentAccount") > 0)
+    {
+        std::cout << " " << std::endl;
+        return 0;
+    }
+    std::string sql = "CREATE TABLE StudentAccount("
+                      "ID          INT PRIMARY KEY         NOT NULL, "
+                      "BALANCE     FLOAT                   NOT NULL );";
+    int exit{0};
+    exit = sqlite3_open("sqliteDb/college.db", &Db);
+    char *messageError;
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+
+    if (studentDb.tableCount("StudentAccount") > 0)
+    {
+        std::cout << " " << std::endl;
+        return 0;
+    }
+
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error creating StudentAccount Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "StudentAccount Table created successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//insert into StudentAccount Table
+int Student::insertIntoStudentAccount(long long id, long double balance, std::string tableName)
+{
+    sqlite3 *Db;
+    char *messageError;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+
+    if (studentDb.checkId(tableName, id) > 0)
+    {
+        std::cout << "" << std::endl;
+        return 0;
+    }
+
+    std::string sql = "INSERT INTO StudentAccount VALUES(" + std::to_string(id) + ", " + std::to_string(balance) + ");";
+
+    exit = sqlite3_exec(Db, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK)
+    {
+        std::cout << "Error inserting data into StudentAccount Table" << std::endl;
+        sqlite3_free(messageError);
+    }
+    else
+        std::cout << "Data inserted successfully" << std::endl;
+
+    sqlite3_close(Db);
+    return 0;
+}
+
+//student read
 void Student::studentRead(std::string dept, long long id)
 {
     studentDb.readRecord(id, dept);
 }
 
+//print account balance
+static int checkBalance(void *data, int argc, char **argv, char **azColName)
+{
+    system("clear");
+    int i;
+
+    for (i = 0; i < argc; i++)
+    {
+        std::string s;
+        std::stringstream ss;
+        ss << argv[i];
+        ss >> s;
+
+        std::cout << "You have an outstanding balance of R" << s << std::endl;
+    }
+}
+
+//read account balance
+int Student::readStudentBalance(long long id, std::string tableName)
+{
+    sqlite3 *Db;
+    int exit = sqlite3_open("sqliteDb/college.db", &Db);
+    std::string query = "SELECT BALANCE FROM " + tableName + " WHERE ID=" + std::to_string(id);
+
+    struct sqlite3_stmt *selectstmt;
+    int result = sqlite3_prepare_v2(Db, query.c_str(), -1, &selectstmt, NULL);
+    if (result == SQLITE_OK)
+    {
+        if (sqlite3_step(selectstmt) == SQLITE_ROW)
+        {
+            sqlite3_exec(Db, query.c_str(), checkBalance, NULL, NULL);
+        }
+        else
+        {
+            system("clear");
+            std::cout << "Sorry, we don\'t seem to have a record with that i.d number in our system." << std::endl;
+            return -1;
+        }
+    }
+    sqlite3_finalize(selectstmt);
+}
+
+// void Student::makePayment(long long id)
+// {
+
+//     long double newBalance{0.0};
+//     std::cout << "How much would you like to pay? " << std::endl;
+
+//     studentDb.updateRecordInTable(id, "BALANCE", "", "StudentAccount")
+// }
+
 void Student::studentTask(long long id, std::string tableName)
 {
+    studentMain.createStudentAccountTable();
     studentMain.departmentTitle = "Student";
     int choice = -1;
     std::string temp;
@@ -158,11 +320,14 @@ void Student::studentTask(long long id, std::string tableName)
 
         case 3:
         {
-            std::cout << "Feature under construction " << std::endl;
+            //insert into student acc table
+            studentMain.insertIntoStudentAccount(id, 30000.00, "StudentAccount");
+
             break;
         }
         case 4:
         {
+            studentMain.readStudentBalance(id, "StudentAccount");
             std::cout << "Feature under construction " << std::endl;
             break;
         }

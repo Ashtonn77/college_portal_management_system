@@ -15,7 +15,7 @@ public:
     int countRows(std::string tableName);
     void readRecord(long long id, std::string tableName);
     int updateRecordInTable(long long id, std::string column, std::string attribute, std::string tableName);
-    int tableCount();
+    int tableCount(std::string tableName);
     int createStudentTable();
     int insertIntoStudentTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string courseName);
     int createFacultyTable();
@@ -23,6 +23,7 @@ public:
     int createStaffTable();
     int insertIntoStaffTable(long long id, std::string name, std::string surname, int age, std::string address, std::string dept, std::string jobTitle, long double salary);
     int readSingleRecord(long long id, std::string tableName);
+    int checkId(std::string tableName, long long id);
 
 protected:
 };

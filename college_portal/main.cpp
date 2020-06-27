@@ -137,7 +137,7 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState("Student");
+            s.checkTableState("StudentAccount");
 
             break;
         }
