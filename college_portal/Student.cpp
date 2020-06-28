@@ -229,14 +229,9 @@ int Student::insertIntoStudentAccount(long long id, long double balance, std::st
     return 0;
 }
 
-//student read
-void Student::studentRead(std::string dept, long long id)
-{
-    studentDb.readRecord(id, dept);
-}
-
-//print account balance
-static int checkBalance(void *data, int argc, char **argv, char **azColName)
+std::string currentBalance = "";
+//print course details msg
+static int accountDisplay(void *data, int argc, char **argv, char **azColName)
 {
     system("clear");
     int i;
@@ -247,12 +242,14 @@ static int checkBalance(void *data, int argc, char **argv, char **azColName)
         std::stringstream ss;
         ss << argv[i];
         ss >> s;
-
-        std::cout << "You have an outstanding balance of R" << s << std::endl;
+        currentBalance = s;
     }
+    std::cout << std::endl;
+    std::cout << std::endl;
+    return 0;
 }
 
-//read account balance
+//read student balance
 int Student::readStudentBalance(long long id, std::string tableName)
 {
     sqlite3 *Db;
@@ -265,7 +262,7 @@ int Student::readStudentBalance(long long id, std::string tableName)
     {
         if (sqlite3_step(selectstmt) == SQLITE_ROW)
         {
-            sqlite3_exec(Db, query.c_str(), checkBalance, NULL, NULL);
+            sqlite3_exec(Db, query.c_str(), accountDisplay, NULL, NULL);
         }
         else
         {
@@ -276,15 +273,35 @@ int Student::readStudentBalance(long long id, std::string tableName)
     }
     sqlite3_finalize(selectstmt);
 }
+//end read course values
 
-// void Student::makePayment(long long id)
-// {
+//make payment
+void Student::makePayment(long long id)
+{
+    system("clear");
+    long double newBalance{0.0};
+    long double curBal = std::stold(currentBalance);
+    std::cout << "You have an outstanding balance of R" << currentBalance << std::endl;
+    std::cout << "How much would you like to pay?" << std::endl;
+    std::cin >> newBalance;
+    newBalance = curBal - newBalance;
+    std::cin.clear();
+    std::string temp = std::to_string(newBalance);
+    int i = temp.find('.');
+    temp = temp.substr(0, i + 3);
+    studentMain.readStudentBalance(id, "StudentAccount");
+    if (studentDb.updateRecordInTable(id, "BALANCE", temp, "StudentAccount") != -1)
+    {
+        std::cout << std::endl;
+        std::cout << "Your new balance is R" << temp << std::endl;
+    }
+}
 
-//     long double newBalance{0.0};
-//     std::cout << "How much would you like to pay? " << std::endl;
-
-//     studentDb.updateRecordInTable(id, "BALANCE", "", "StudentAccount")
-// }
+//student read
+void Student::studentRead(std::string dept, long long id)
+{
+    studentDb.readRecord(id, dept);
+}
 
 void Student::studentTask(long long id, std::string tableName)
 {
@@ -322,17 +339,23 @@ void Student::studentTask(long long id, std::string tableName)
         {
             //insert into student acc table
             studentMain.insertIntoStudentAccount(id, 30000.00, "StudentAccount");
-
+            //read balance
+            studentMain.readStudentBalance(id, "StudentAccount");
+            //make payment
+            studentMain.makePayment(id);
+            std::cout << std::endl;
             break;
         }
         case 4:
         {
             studentMain.readStudentBalance(id, "StudentAccount");
-            std::cout << "Feature under construction " << std::endl;
+            std::cout << "You have an outstanding balance of R" << currentBalance << std::endl;
+            std::cout << std::endl;
             break;
         }
         case 5:
         {
+
             std::cout << "Feature under construction " << std::endl;
             break;
         }

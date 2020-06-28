@@ -228,6 +228,7 @@ int Database::updateRecordInTable(long long id, std::string column, std::string 
     {
         std::cout << "Error updating record" << std::endl;
         sqlite3_free(messageError);
+        return -1;
     }
     else
         std::cout << "Record updated successfully" << std::endl;
