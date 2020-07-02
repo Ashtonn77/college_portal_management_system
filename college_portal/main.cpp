@@ -80,9 +80,10 @@ int main(int argc, char **argv)
             {
                 Faculty faculty;
                 faculty.userTitle = "Faculty";
-                if (s.readSingleRecord(faculty.login(), faculty.userTitle) != -1)
+                int i = 0;
+                if (s.readSingleRecord(i = faculty.login(), faculty.userTitle) != -1)
                 {
-                    std::cout << "Everything seems to be in order" << std::endl;
+                    faculty.facultyTask(i, faculty.userTitle);
                 }
                 else
                 {

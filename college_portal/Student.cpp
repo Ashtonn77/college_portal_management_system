@@ -315,8 +315,7 @@ void Student::studentTask(long long id, std::string tableName)
         std::cout << "2. View course details " << std::endl;
         std::cout << "3. Make payment " << std::endl;
         std::cout << "4. Check fees balance " << std::endl;
-        std::cout << "5. Go to online site " << std::endl;
-        std::cout << "6. Back" << std::endl;
+        std::cout << "5. Back" << std::endl;
 
         std::cin >> temp;
         choice = std::stoi(studentErr.validIntegerInput(temp, "Re-enter choice"));
@@ -356,11 +355,6 @@ void Student::studentTask(long long id, std::string tableName)
         case 5:
         {
 
-            std::cout << "Feature under construction " << std::endl;
-            break;
-        }
-        case 6:
-        {
             system("clear");
             std::cout << "Access another department or go back? " << std::endl;
             break;
@@ -369,5 +363,5 @@ void Student::studentTask(long long id, std::string tableName)
             std::cout << "Invalid input " << std::endl;
         }
 
-    } while (choice != 6);
+    } while (choice != 5);
 }
