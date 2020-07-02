@@ -10,6 +10,9 @@ public:
     ~Faculty();
     void facultyTask(long long id, std::string tableName);
     void generalSchedule();
+    int createStudentResult();
+    int insertIntoStudentResult(long long id, std::string name, std::string surname, std::string subject, int result);
+    int verifyForMarks(long long id, std::string tableName);
 
 protected:
 private:

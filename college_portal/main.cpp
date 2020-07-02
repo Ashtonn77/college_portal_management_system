@@ -102,7 +102,7 @@ int main(int argc, char **argv)
                 staff.userTitle = "Staff";
                 if (s.readSingleRecord(staff.login(), staff.userTitle) != -1)
                 {
-                    std::cout << "Everything seems to be in order" << std::endl;
+                    std::cout << "Sorry this part of the system is under construction" << std::endl;
                 }
                 else
                 {
@@ -138,13 +138,12 @@ int main(int argc, char **argv)
         case 6:
         {
             system("clear");
-            s.checkTableState("StudentAccount");
+            s.checkTableState("studentResult");
 
             break;
         }
         case 7:
         {
-            //s.readSingleRecord(120, "Admin");
             break;
         }
 
